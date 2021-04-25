@@ -1,6 +1,7 @@
 module Init exposing
     ( top
     , field
+    , noCmd
     , andThen
     )
 
@@ -11,6 +12,7 @@ module Init exposing
 
 @docs top
 @docs field
+@docs noCmd
 @docs andThen
 
 -}
@@ -28,6 +30,16 @@ field ( a, subCmd ) ( f, cmd ) =
     ( f a
     , Cmd.batch [ cmd, subCmd ]
     )
+
+
+{-|
+
+    noCmd a == field ( a, Cmd.none )
+
+-}
+noCmd : a -> ( a -> b, Cmd msg ) -> ( b, Cmd msg )
+noCmd a =
+    field ( a, Cmd.none )
 
 
 {-| -}
